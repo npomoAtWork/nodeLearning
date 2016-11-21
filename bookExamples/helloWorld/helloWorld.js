@@ -11,6 +11,19 @@ function serveStaticFile(res, path, contentType, responseCode){
             res.writeHead(responseCode, {'Content-Type': contentType});
             res.end(data);
         }
+    (function(count,cb){
+        count=count+5;
+        if(count>3){
+            cb("Error - over 5", count);
+        }
+        else {
+        cb(null, count);
+        }
+    })(1,function(err,cnt){ 
+        if(err) console.log(err);
+        else console.log(cnt);
+    })
+
     });
 
 }
@@ -22,8 +35,7 @@ http.createServer(function(req,res){
         case '': 
             //res.writeHead(200, { 'Content-Type': 'text/plain'});
             //res.end('Homepage');
-            serveStaticFile(res, '/public/home.html', 'text/html');
-            
+            serveStaticFile(res, '/public/home.html', 'text/html');       
             break;
         
         case '/about':
